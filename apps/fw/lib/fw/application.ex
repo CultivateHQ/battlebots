@@ -9,6 +9,7 @@ defmodule Fw.Application do
     # Define workers and child supervisors to be supervised
     children = [
       worker(Nerves.InterimWiFi, ["wlan0", wifi_opts()], function: :setup),
+      worker(Fw.Ntp, []),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
@@ -17,7 +18,5 @@ defmodule Fw.Application do
     Supervisor.start_link(children, opts)
   end
 
-  defp wifi_opts do
-    Application.fetch_env!(:fw, :wifi_opts) |> IO.inspect
-  end
+  defp wifi_opts, do: Application.fetch_env!(:fw, :wifi_opts)
 end
