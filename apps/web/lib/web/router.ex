@@ -28,38 +28,44 @@ defmodule Web.Router do
 
   post "forward" do
     Locomotion.forward
-    send_resp(conn, 200, "Forward!" |> Html.control_page)
+    redirect_home(conn)
   end
 
   post "back" do
     Locomotion.reverse
-    send_resp(conn, 200, "Back!" |> Html.control_page)
+    redirect_home(conn)
   end
 
   post "stop" do
     Locomotion.stop
-    send_resp(conn, 200, "Stopped!" |> Html.control_page)
+    redirect_home(conn)
   end
 
   post "step_rate" do
     step_rate = conn.params["step_rate"] |> String.to_integer
     Locomotion.set_step_rate(step_rate)
 
-    send_resp(conn, 200, "Stepping at #{step_rate}" |> Html.control_page)
+    redirect_home(conn)
   end
 
   post "turn_left" do
     Locomotion.turn_left
-    send_resp(conn, 200, "Left!" |> Html.control_page)
+    redirect_home(conn)
   end
 
   post "turn_right" do
     Locomotion.turn_right
-    send_resp(conn, 200, "Right!" |> Html.control_page)
+    redirect_home(conn)
   end
 
   match _ do
     send_resp(conn, 404, "<p>Not found.</p><hr/><p>#{conn |> inspect}</p>")
+  end
+
+  defp redirect_home(conn) do
+    conn
+    |> put_resp_header("location", "/")
+    |> send_resp(303, "")
   end
 
 end
