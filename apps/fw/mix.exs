@@ -53,6 +53,7 @@ defmodule Fw.Mixfile do
     [
       {:nerves, "~> 0.5.0", runtime: false},
       {:locomotion, in_umbrella: true},
+      {:web, in_umbrella: true},
     ] ++
     deps(@target)
   end
