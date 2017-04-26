@@ -1,6 +1,8 @@
 defmodule Locomotion.StepperMotor do
   use GenServer
 
+  alias ElixirALE.GPIO
+
   defstruct pins: [], direction: :neutral, position: 0, step_millis: 0, timer_ref: nil, gear: :low
 
   @position_pin_values [
@@ -54,7 +56,7 @@ defmodule Locomotion.StepperMotor do
   ## Callbacks
   def init(pin_ids) do
     gpio_pins = pin_ids |> Enum.map(fn pin ->
-      {:ok, gpio_pid} = Gpio.start_link(pin, :output)
+      {:ok, gpio_pid} = GPIO.start_link(pin, :output)
       gpio_pid
     end)
 
@@ -90,7 +92,7 @@ defmodule Locomotion.StepperMotor do
     |> Enum.at(next_position)
     |> Enum.zip(pins)
     |> Enum.each(fn {value, pin} ->
-      pin |> Gpio.write(value)
+      pin |> GPIO.write(value)
     end)
 
     timer_ref = schedule_next_step(direction, step_millis)

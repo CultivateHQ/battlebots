@@ -1,6 +1,8 @@
 defmodule Locomotion.PinTest do
   use GenServer
 
+  alias ElixirALE.GPIO
+
   @moduledoc """
   Flashes all the pins, for use in testing hardware (eg pin soldering)
   """
@@ -18,7 +20,7 @@ defmodule Locomotion.PinTest do
   def init(_) do
     pins = @pins
     |> Enum.map(fn i ->
-      {:ok, pid} = Gpio.start_link(i, :output)
+      {:ok, pid} = GPIO.start_link(i, :output)
       pid
     end)
     {:ok, %__MODULE__{pins: pins}}
@@ -46,7 +48,7 @@ defmodule Locomotion.PinTest do
 
   def handle_info(:flash, state = %{currently_testing: true, pins: pins, pin_level: pin_level}) do
     Enum.each(pins, fn pin ->
-      Gpio.write(pin, pin_level)
+      GPIO.write(pin, pin_level)
     end)
     next_pin_level = rem(pin_level + 1, 2)
     Process.send_after(self(), :flash, @flash_rate)

@@ -1,4 +1,4 @@
-defmodule Gpio do
+defmodule ElixirALE.GPIO do
   use GenServer
 
   @moduledoc """
@@ -46,7 +46,7 @@ defmodule Gpio do
 
   # Genserver
   def init({pin, direction}) do
-    state = %Gpio{pin: pin, direction: direction}
+    state = %__MODULE__{pin: pin, direction: direction}
     {:ok, state}
   end
 

@@ -2,6 +2,8 @@ defmodule Locomotion.StepperMotorTest do
   use ExUnit.Case
   alias Locomotion.StepperMotor
 
+  alias ElixirALE.GPIO
+
   @pins [30, 31, 32, 33]
 
   setup do
@@ -110,8 +112,8 @@ defmodule Locomotion.StepperMotorTest do
     :timer.sleep(1)
     assert StepperMotor.state(pid).position == 0
 
-    assert Gpio.pin_state_log(:gpio_30) == [0, 0, 0, 0, 0, 1, 1, 1, 0]
-    assert Gpio.pin_state_log(:gpio_33) == [1, 1, 0, 0, 0, 0, 0, 1, 1]
+    assert GPIO.pin_state_log(:gpio_30) == [0, 0, 0, 0, 0, 1, 1, 1, 0]
+    assert GPIO.pin_state_log(:gpio_33) == [1, 1, 0, 0, 0, 0, 0, 1, 1]
   end
 
 
@@ -124,8 +126,8 @@ defmodule Locomotion.StepperMotorTest do
       assert StepperMotor.state(pid).position == i
     end)
 
-    assert Gpio.pin_state_log(:gpio_30) == [0, 0, 0, 0, 0, 1, 1, 1, 0] |> Enum.reverse
-    assert Gpio.pin_state_log(:gpio_33) == [1, 1, 0, 0, 0, 0, 0, 1, 1] |> Enum.reverse
+    assert GPIO.pin_state_log(:gpio_30) == [0, 0, 0, 0, 0, 1, 1, 1, 0] |> Enum.reverse
+    assert GPIO.pin_state_log(:gpio_33) == [1, 1, 0, 0, 0, 0, 0, 1, 1] |> Enum.reverse
   end
 
   test "cycling forward in high", %{pid: pid} do

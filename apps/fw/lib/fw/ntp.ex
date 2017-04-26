@@ -33,7 +33,7 @@ defmodule Fw.Ntp do
         System.cmd("ntpd", ntp_args)
         @poll_after_time_set
       _ ->
-        Logger.info("Not ready to set time yet")
+        Logger.info("Not ready to set time, yet")
         @poll_after_not_set
     end
     Process.send_after(self(), :poll, repoll)
