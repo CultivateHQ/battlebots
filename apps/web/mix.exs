@@ -24,6 +24,7 @@ defmodule Web.Mixfile do
       {:plug, ">= 0.0.0"},
       {:cowboy, ">= 0.0.0"},
       {:locomotion, in_umbrella: true},
+      {:laser, in_umbrella: true},
     ]
   end
 end

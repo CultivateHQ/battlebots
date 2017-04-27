@@ -8,6 +8,7 @@ defmodule Web.Router do
   use Plug.Router
   plug Plug.Parsers, parsers: [:urlencoded]
   alias Locomotion.Locomotion
+  alias Laser.LaserControl
   alias Web.Html
 
   plug :match
@@ -24,6 +25,11 @@ defmodule Web.Router do
 
   get "/cultivatormobile.css" do
     send_resp(conn, 200, Html.css)
+  end
+
+  post "fire" do
+    LaserControl.fire
+    redirect_home(conn)
   end
 
   post "forward" do

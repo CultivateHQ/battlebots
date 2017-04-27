@@ -78,6 +78,15 @@ defmodule Web.Html do
             <td>&nbsp;</td>
           </tr>
           <tr>
+          <td colspan="3">
+              <form action = "/fire" method="post">
+                 <button type="submit">
+                    Fire!
+                 </button>
+               </form>
+          </td>
+          </tr>
+          <tr>
             <td colspan="3">
               <form action = "/step_rate" method="post" class="controller__steps">
                 <input type="number" name="step_rate" value="#{step_rate}"></input>
