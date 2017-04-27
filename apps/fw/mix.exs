@@ -25,13 +25,8 @@ defmodule Fw.Mixfile do
 
   # Configuration for the OTP application.
   #
-  # Type `mix help compile.app` for more information.
   def application, do: application(@target)
 
-  # Specify target specific application configurations
-  # It is common that the application start function will start and supervise
-  # applications which could cause the host to fail. Because of this, we only
-  # invoke Fw.start/2 when running on a target.
   def application("host") do
     [extra_applications: [:logger]]
   end
@@ -40,19 +35,11 @@ defmodule Fw.Mixfile do
      extra_applications: [:logger]]
   end
 
-  # Dependencies can be Hex packages:
-  #
-  #   {:my_dep, "~> 0.3.0"}
-  #
-  # Or git/path repositories:
-  #
-  #   {:my_dep, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
-  #
-  # Type "mix help deps" for more examples and options
   def deps do
     [
       {:nerves, "~> 0.5.0", runtime: false},
       {:locomotion, in_umbrella: true},
+      {:laser, in_umbrella: true},
       {:web, in_umbrella: true},
     ] ++
     deps(@target)
@@ -64,7 +51,7 @@ defmodule Fw.Mixfile do
     [
       {:nerves_runtime, "~> 0.1.0"},
       {:"nerves_system_#{target}", ">= 0.0.0", runtime: false},
-      {:nerves_interim_wifi, ">= 0.0.0"},
+      {:nerves_interim_wifi, "~> 0.2.0"},
     ]
   end
 

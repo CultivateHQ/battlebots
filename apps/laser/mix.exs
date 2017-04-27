@@ -1,8 +1,8 @@
-defmodule Locomotion.Mixfile do
+defmodule Laser.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :locomotion,
+    [app: :laser,
      version: "0.1.0",
      build_path: "../../_build",
      config_path: "../../config/config.exs",
@@ -17,7 +17,7 @@ defmodule Locomotion.Mixfile do
   def application do
     # Specify extra applications you'll use from Erlang/Elixir
     [extra_applications: [:logger],
-     mod: {Locomotion.Application, []}]
+     mod: {Laser.Application, []}]
   end
 
   defp deps do
