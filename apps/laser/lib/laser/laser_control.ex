@@ -1,4 +1,4 @@
-defmodule Laser.Laser do
+defmodule Laser.LaserControl do
   use GenServer
 
   alias ElixirALE.GPIO

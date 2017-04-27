@@ -1,11 +1,11 @@
-defmodule Laser.LaserTest do
+defmodule Laser.LaserControlTest do
   use ExUnit.Case
-  alias Laser.Laser
+  alias Laser.LaserControl
   alias ElixirALE.GPIO
 
 
   setup do
-    {:ok, pid} = Laser.start_link(7, 1, :laser_controller_test)
+    {:ok, pid} = LaserControl.start_link(7, 1, :laser_controller_test)
     {:ok, gpio_7} = GPIO.start_link(7, :output)
     {:ok, laser: pid, pin: gpio_7}
   end
@@ -15,7 +15,7 @@ defmodule Laser.LaserTest do
   end
 
   test "firing sets pin to low", %{pin: pin, laser: laser} do
-    Laser.fire(laser)
+    LaserControl.fire(laser)
     :sys.get_state(laser)
     assert GPIO.read(pin) == 0
     wait_for_pin_state(pin, 1, 100)
