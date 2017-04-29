@@ -37,21 +37,27 @@ defmodule Fw.Mixfile do
 
   def deps do
     [
-      {:nerves, "~> 0.5.0", runtime: false},
+      {:nerves, github: "nerves-project/nerves", runtime: false, override: true},
+      # {:nerves, "~> 0.5.1", runtime: false},
       {:locomotion, in_umbrella: true},
       {:laser, in_umbrella: true},
       {:web, in_umbrella: true},
+      {:hit_detector, in_umbrella: true},
     ] ++
     deps(@target)
   end
 
   # Specify target specific dependencies
   def deps("host"), do: []
-  def deps(target) do
+  def deps("rpi0" = _target) do
     [
       {:nerves_runtime, "~> 0.1.0"},
-      {:"nerves_system_#{target}", ">= 0.0.0", runtime: false},
       {:nerves_interim_wifi, "~> 0.2.0"},
+      # {:"nerves_system_#{target}", ">= 0.0.0", runtime: false},
+      # {:nerves_system_rpi0, path: "../../../nerves_system_rpi0", runtime: false},
+      # {:nerves_system_rpi0, github: "nerves-project/nerves_system_rpi0", tag: "v0.11.1", runtime: false},
+      # {:"rpi0_gadget_ethernet", github: "tmecklem/rpi0_gadget_ethernet", tag: "v0.12.0", runtime: false},
+      {:nerves_system_rpi0, github: "paulanthonywilson/nerves_system_rpi0", runtime: false},
     ]
   end
 

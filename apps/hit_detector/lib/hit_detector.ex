@@ -1,0 +1,2 @@
+defmodule HitDetector do
+end

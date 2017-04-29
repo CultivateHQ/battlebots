@@ -9,7 +9,6 @@ defmodule Locomotion.Application do
     # Define workers and child supervisors to be supervised
     children = [
       supervisor(Locomotion.LocomotionSupervisor, []),
-      worker(Locomotion.PinTest, [])
     ]
 
     opts = [strategy: :one_for_one, name: Locomotion.Supervisor]
