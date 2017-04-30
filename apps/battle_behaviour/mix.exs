@@ -16,12 +16,15 @@ defmodule BattleBehaviour.Mixfile do
 
   def application do
     # Specify extra applications you'll use from Erlang/Elixir
-    [extra_applications: [:logger]]
+    [extra_applications: [:logger],
+    mod: {BattleBehaviour.Application, []}]
   end
 
   defp deps do
     [
       {:events, in_umbrella: true},
+      {:elixir_ale, "~> 0.6.2", only: :prod},
+      {:dummy_nerves, in_umbrella: true, only: [:dev, :test]},
     ]
   end
 end
