@@ -13,7 +13,6 @@ defmodule Web.Html do
   end
 
   def control_page(message) do
-    step_rate = Locomotion.get_step_rate
     now = :erlang.universaltime
     """
     <html>
@@ -89,7 +88,7 @@ defmodule Web.Html do
           <tr>
             <td colspan="3">
               <form action = "/step_rate" method="post" class="controller__steps">
-                <input type="number" name="step_rate" value="#{step_rate}"></input>
+                <input type="number" name="step_rate" value="#{step_rate()}"></input>
                 <input type="submit" value="Step rate"></input>
               </form>
             </td>
@@ -108,6 +107,13 @@ defmodule Web.Html do
       </body>
     </html>
     """
+  end
+
+  defp step_rate do
+    case Locomotion.get_step_rate do
+      {:error, :disabled_by_laser} -> "¯\(°_o)/¯"
+      rate -> rate
+    end
   end
 
 

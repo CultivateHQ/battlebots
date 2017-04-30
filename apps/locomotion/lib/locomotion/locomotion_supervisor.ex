@@ -15,7 +15,8 @@ defmodule Locomotion.LocomotionSupervisor do
     children = [
       worker(Locomotion.StepperMotor, [stepper_pins()[:right], [name: :right_stepper]], id: :left),
       worker(Locomotion.StepperMotor, [stepper_pins()[:left], [name: :left_stepper]], id: :right),
-      worker(Locomotion.Locomotion, []),
+      worker(Locomotion.Locomotion, [[name: :actual_locomotion]]),
+      worker(BattleBehaviour.BattleProxy, [:actual_locomotion, [name: Locomotion.Locomotion]])
     ]
 
     supervise(children, strategy: :one_for_all)

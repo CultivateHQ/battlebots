@@ -1,6 +1,8 @@
 defmodule BattleProxyTest do
   use ExUnit.Case
 
+  alias BattleBehaviour.BattleProxy
+
   defmodule AGenServer do
     use GenServer
 

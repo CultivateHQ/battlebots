@@ -48,9 +48,10 @@ defmodule Web.Router do
   end
 
   post "step_rate" do
-    step_rate = conn.params["step_rate"] |> String.to_integer
-    Locomotion.set_step_rate(step_rate)
-
+    case Integer.parse(conn.params["step_rate"]) do
+      {step_rate, _} -> Locomotion.set_step_rate(step_rate)
+      _ -> nil
+    end
     redirect_home(conn)
   end
 

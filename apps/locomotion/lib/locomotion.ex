@@ -1,5 +1,3 @@
 defmodule Locomotion do
-  @moduledoc """
-  Documentation for Locomotion.
-  """
+  @moduledoc false
 end

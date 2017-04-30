@@ -1,4 +1,4 @@
-defmodule BattleProxy do
+defmodule BattleBehaviour.BattleProxy do
   use GenServer
 
   @moduledoc """
@@ -37,4 +37,6 @@ defmodule BattleProxy do
   def handle_info({:battle_event, :laser_hits, :reset}, s) do
     {:noreply, %{s | enabled: true}}
   end
+
+  def handle_info(_other, s), do: {:noreply, s}
 end

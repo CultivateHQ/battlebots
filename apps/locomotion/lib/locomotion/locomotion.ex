@@ -9,8 +9,8 @@ defmodule Locomotion.Locomotion do
   use GenServer
   alias Locomotion.StepperMotor
 
-  def start_link do
-    GenServer.start_link(__MODULE__, [], name: @name)
+  def start_link(opts \\ [name: @name]) do
+    GenServer.start_link(__MODULE__, [], opts)
   end
 
   ### API

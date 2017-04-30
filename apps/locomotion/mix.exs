@@ -22,6 +22,8 @@ defmodule Locomotion.Mixfile do
 
   defp deps do
     [
+      {:battle_behaviour, in_umbrella: true},
+      {:events, in_umbrella: true},
       {:elixir_ale, "~> 0.6.2", only: :prod},
       {:dummy_nerves, in_umbrella: true, only: [:dev, :test]},
     ]
