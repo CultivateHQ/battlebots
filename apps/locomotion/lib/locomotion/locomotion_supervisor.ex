@@ -16,6 +16,7 @@ defmodule Locomotion.LocomotionSupervisor do
       worker(Locomotion.StepperMotor, [stepper_pins()[:right], [name: :right_stepper]], id: :left),
       worker(Locomotion.StepperMotor, [stepper_pins()[:left], [name: :left_stepper]], id: :right),
       worker(Locomotion.Locomotion, [[name: :actual_locomotion]]),
+      worker(Locomotion.ReactToLaser, [:actual_locomotion]),
       worker(BattleBehaviour.BattleProxy, [:actual_locomotion, [name: Locomotion.Locomotion]])
     ]
 
