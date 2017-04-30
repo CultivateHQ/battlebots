@@ -7,7 +7,8 @@ defmodule Laser.Application do
     import Supervisor.Spec, warn: false
 
     children = [
-      worker(Laser.LaserControl, [5])
+      worker(Laser.LaserControl, [5, 500, :real_laser]),
+      worker(BattleBehaviour.BattleProxy, [:real_laser, [name: Laser.LaserControl]])
     ]
 
     opts = [strategy: :one_for_one, name: Laser.Supervisor]

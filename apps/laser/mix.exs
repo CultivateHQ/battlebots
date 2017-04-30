@@ -22,6 +22,8 @@ defmodule Laser.Mixfile do
 
   defp deps do
     [
+      {:events, in_umbrella: true},
+      {:battle_behaviour, in_umbrella: true},
       {:elixir_ale, "~> 0.6.2", only: :prod},
       {:dummy_nerves, in_umbrella: true, only: [:dev, :test]},
     ]
