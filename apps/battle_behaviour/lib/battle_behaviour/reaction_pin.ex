@@ -15,14 +15,30 @@ defmodule BattleBehaviour.ReactionPin do
     {:ok, pid} = GPIO.start_link(pin, :output)
     Events.subscribe(:laser_hits)
 
+    GPIO.write(pid, 0)
+
     {:ok, %__MODULE__{pin_pid: pid, delay: delay}}
   end
 
-  def handle_info({:battle_event, :laser_hits, :hit}, s) do
+  def handle_info({:battle_event, :laser_hits, :hit}, s = %{hit: false}) do
+    send(self(), :flash_on)
+    {:noreply, %{s | hit: true}}
+  end
+
+  def handle_info({:battle_event, :laser_hits, :reset}, s = %{pin_pid: pin_pid}) do
+    GPIO.write(pin_pid, 0)
+    {:noreply, %{s | hit: false}}
+  end
+
+  def handle_info(:flash_on, s = %{hit: true, pin_pid: pin_pid}) do
+    GPIO.write(pin_pid, 1)
+    send(self(), :flash_off)
     {:noreply, s}
   end
 
-  def handle_info({:battle_event, :laser_hits, :reset}, s) do
+  def handle_info(:flash_off, s = %{hit: true, pin_pid: pin_pid}) do
+    GPIO.write(pin_pid, 0)
+    send(self(), :flash_on)
     {:noreply, s}
   end
 
