@@ -18,7 +18,7 @@ defmodule Web.Html do
     <html>
       <head>
         <title>Cultivatormobile Control</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
         <link rel="stylesheet" href="/cultivatormobile.css") %>">
       </head>
   <body>
@@ -106,11 +106,11 @@ defmodule Web.Html do
     </form>
 
     <p class="message">#{message}</p>
-      <div class = "footer">
+    <div class = "footer">
       <p>Page loaded at #{now |> format_date_time}</p>
       <p>Compiled at #{@compiled_at |> format_date_time}</p>
     </div>
-      </body>
+    </body>
     </html>
     """
   end

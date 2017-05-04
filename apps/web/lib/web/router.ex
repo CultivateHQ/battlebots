@@ -66,7 +66,6 @@ defmodule Web.Router do
   end
 
   post "reset" do
-    IO.inspect "reset!"
     Events.broadcast(:laser_hits, :reset)
     redirect_home(conn)
   end
