@@ -99,8 +99,8 @@ defmodule Web.Html do
     <div class="home-link">
       <a href="/">Home</a>
     </div>
-    <form action = "/reset" method="post">
-       <button type="submit">
+    <form action = "/reset" method="post" class="reset-form">
+       <button type="submit" class="reset-form__button">
           Reset
        </button>
     </form>

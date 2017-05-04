@@ -109,3 +109,8 @@ input[type=submit], button[type=submit] {
     height: auto;
     font-size: 16px;
 }
+
+.reset-form {
+  margin-top: 2rem;
+  text-align: center;
+}
