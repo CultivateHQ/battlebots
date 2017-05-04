@@ -66,7 +66,7 @@ defmodule Web.Router do
   end
 
   match _ do
-    send_resp(conn, 404, "<p>Not found.</p><hr/><p>#{conn |> inspect}</p>")
+    redirect_home(conn)
   end
 
   defp redirect_home(conn) do
