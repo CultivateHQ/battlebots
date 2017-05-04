@@ -99,6 +99,12 @@ defmodule Web.Html do
     <div class="home-link">
       <a href="/">Home</a>
     </div>
+    <form action = "/reset" method="post">
+       <button type="submit">
+          Reset
+       </button>
+    </form>
+
     <p class="message">#{message}</p>
       <div class = "footer">
       <p>Page loaded at #{now |> format_date_time}</p>
