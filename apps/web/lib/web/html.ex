@@ -23,6 +23,7 @@ defmodule Web.Html do
       </head>
   <body>
     <div class="controller">
+      #{hit_header()}
       <div class="controller__left-controls">
         <table>
           <tr>
@@ -119,6 +120,21 @@ defmodule Web.Html do
     case Locomotion.get_step_rate do
       {:error, :disabled_by_laser} -> "¯\(°_o)/¯"
       rate -> rate
+    end
+  end
+
+  defp hit_header, do: hit_header(hit?())
+  defp hit_header(true) do
+    """
+    <h2 class="hit">Aaaaaaaargh! I'm hit</h2>
+    """
+  end
+  defp hit_header(_), do: ""
+
+  defp hit? do
+    case Locomotion.get_step_rate do
+      {:error, :disabled_by_laser} -> true
+      _ -> false
     end
   end
 
