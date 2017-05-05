@@ -32,7 +32,7 @@ defmodule Fw.Mixfile do
   end
   def application(_target) do
     [mod: {Fw.Application, []},
-     extra_applications: [:logger]]
+     extra_applications: [:logger, :runtime_tools]]
   end
 
   def deps do
@@ -43,6 +43,7 @@ defmodule Fw.Mixfile do
       {:laser, in_umbrella: true},
       {:web, in_umbrella: true},
       {:hit_detector, in_umbrella: true},
+      {:recon, "~> 2.3"},
     ] ++
     deps(@target)
   end

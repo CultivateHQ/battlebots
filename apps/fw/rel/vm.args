@@ -1,6 +1,6 @@
 ## Add custom options here
 
--cookie cultivate
+-setcookie cultivate
 
 ## Start the Elixir shell
 -noshell
