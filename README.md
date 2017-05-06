@@ -30,6 +30,19 @@ Let's assume your local subnet is `192.168.22.x`
 nmap -p 80 192.168.22.2-254 | grep -B 4 open
 ```
 
+## Debugging
+
+Connect a micro-usb *data* cable from your computer to the USB port (not the power port) on the Pi Zero.
+
+`ls /dev/tty.usbmodem*`
+
+Pick the `tty` with the smallest number, eg `/dev/tty/usbmodem1`
+
+`screen /dev/tty.usbmodem1`
+
+Then you'll be connected to the iEX session that the PI boots into.
+
+
 
 ## More instructions coming soon
 
