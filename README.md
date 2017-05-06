@@ -43,8 +43,62 @@ Pick the `tty` with the smallest number, eg `/dev/tty/usbmodem1`
 Then you'll be connected to the iEX session that the PI boots into.
 
 
+## Application structure
 
-## More instructions coming soon
+This is an Elixir Umbrella application, that can be run in `dev` and `test` on a non-linux environment, specifically OS X. From root, or a specific app, you can run `mix test` or `iex -S mix`.
+
+Applications are:
+
+### [`fw`](apps/fw)
+
+Here the [Nerves](YYY) magic takes place. It is from here that the release is built; it also contains some networking related utilities that will only need to run on the target machine. As is now Nerves standard practice, this application will only start if the application is built with the `MIX_TARGET` environment variable set to a value other than empty or `host`.
+
+In addition to being the place from which firmware is created, this application is responsible for connecting to the WiFi network, and setting the system clock via `ntp`; for the latter see [`ntp.ex`](apps/fw/lib/fw/ntp.ex).
+
+WiFi should be configured in [apps/fw/config/secret.exs](apps/fw/config/secret.exs). This file is excluded from source contol, as WiFi connection credentials should be secret.
+
+See [above](YYY) for how to build the firmware, and burn to the sd card.
+
+### [`dummy_nerves`](apps/dummy_nerves)
+
+Contains test-friendly replacements for hardare facing modules, that tend not to compile on OS X. Only build in `dev` and `test`
+
+### [`web`](apps/web)
+
+Runs the simple web interface for controlling the robot. When built for `prod` then it binds port 80; in `dev` port 4000. The interface is vanilla [`Plug`](YYY) over [`cowboy`](YYY).
+
+### [`locomotion`](apps/locomotion)
+
+Controls the stepper motors, through the named `GenServer` [`Locomotion.Locomotion`](apps/cb_locomotion/lib/cb_locomotion/locomotion.ex).
+
+### [`events`](apps/events)
 
 
-In the meantime, most of https://github.com/CultivateHQ/cultivatarmobile/blob/master/README.md, still applies.
+Simple interface for broadcasting and subscribing to application events, via [`Events`](apps/events/lib/events.ex), such as detecting a laser hit.
+
+### [`laser`](apps/laser)
+
+Fires the laser in half-second bursts.
+
+### ['hit_detector'](apps/hit_detector)
+
+Listens to the Arduino (Uno clone) unit, that sends the reading from the photo-sensitive resistor over the serial interface. If a laser hit is detected (by the reading being over 300) then a hit event is broadcast via [`events`](apps/events). (The laser and locomotion contols then become disabled.)
+
+The Arduino code is in [`laser_read.ino`](arduino/laser_read/laser_read.ino).
+
+### ['battle_behaviour'](apps/battle_behaviour)
+
+Contains utilities for disabling controls when the bot is hit, and flashing GPIO pins if (for instance) you want to attach a LED to a pin.
+
+## Documentation todo
+
+- Parts list
+- Assembly instructions
+- Lego chassis bricks list
+- Lego chassis assembly
+- Remote shelling in (merge branch  + instructions)
+- Suggestions for improvements
+- Suggestions for enhancement
+
+
+... soon

@@ -1,4 +1,8 @@
 defmodule BattleBehaviour.ReactionPin do
+  @moduledoc """
+  Flashes a pin on, and off, when hit. Ideal for attaching to a LED.
+  """
+
   use GenServer
 
   alias ElixirALE.GPIO
