@@ -90,15 +90,84 @@ The Arduino code is in [`laser_read.ino`](arduino/laser_read/laser_read.ino).
 
 Contains utilities for disabling controls when the bot is hit, and flashing GPIO pins if (for instance) you want to attach a LED to a pin.
 
-## Documentation todo
 
-- Parts list
-- Assembly instructions
-- Lego chassis bricks list
-- Lego chassis assembly
-- Remote shelling in (merge branch  + instructions)
-- Suggestions for improvements
-- Suggestions for enhancement
+## Development approach
+
+Our general philosophy is that code should be unit-testable, especially when there's a certain amount of logic involved. Consequently `mix test` will work from the root of the umbrella, even if you're developing in OS X. `iex -S mix` will too. We achieve this by, Isolating network related processes in the `fw` application, and selectively only including certain hardware dependencies in when `MIX_ENV` is `prod`.
+
+The Firmware is built from `fw`, and as is now standard *Nerves* practice, the application is only started when `MIX_TARGET` is not "host" (meaning the development machine); there is no attempt to do things like start WiFi or set the system time with `ntp`.
+
+Dependencies like [Elixir ALE](https://github.com/fhunleth/elixir_ale) will not compile on OS X so are only included when compiling for `prod`. Replacement modules are supplied in the app `dummy_nerves`. eg, from deps  in [`laser/mix.exs`](apps/laser/mix.exs):
+
+```
+ {:elixir_ale, "~> 0.6.2", only: :prod},
+ {:dummy_nerves, in_umbrella: true, only: [:dev, :test]},
+```
+
+
+## Parts
+
+Parts listed are from UK suppliers, but you should be able to find something similar wherever you are. [Joel Byler](https://twitter.com/joelbyler) put together an Amazon whishlist for the relatated [Cultivatormobile project](https://github.com/CultivateHQ/cultivatarmobile): https://www.amazon.com/registry/wishlist/1RB8HLPX63U1Q/ref=cm_sw_r_tw_ws_x_N6P4xb8ZN9RGN .
+
+
+
+| Part | Available from |
+|------|----------------|
+| Pi Zero W) | PI Hut: https://thepihut.com/products/raspberry-pi-zero-w?variant=30332705425, or Pimoroni: https://shop.pimoroni.com/products/raspberry-pi-zero-w. Note that stocks are limited to one per customer. |
+| 40-pin 2x20 male headers for the Gpio | eg https://shop.pimoroni.com/products/male-40-pin-2x20-hat-header or the solderless  https://shop.pimoroni.com/products/gpio-hammer-header (not tried)|
+| Female / Female jumper cables | At least 15, eg from https://www.amazon.co.uk/gp/product/B00OL6JZ3C/ |
+| 5v power bank (portable phone charger) | Something like https://www.amazon.co.uk/gp/product/B00VJS9R4C. They should come with a USB to micro USB cable to connect to the PI |
+| Micro SD card, at least 4GB | Bigger is ok. eg https://www.amazon.co.uk/Kingston-8GB-Micro-SD-HC/dp/B001CQT0X4/ |
+| 2 x 28Byj stepper motors with ULN2003 controllers | eg 5 pieces from here https://www.amazon.co.uk/gp/product/B00SSQAITQ |
+| Battery for stepper motors | For the giveaway we a used battery holder for 4 AA batteries, https://www.amazon.co.uk/gp/product/B00XHQ18DW. You need to provide between 5v and 12v to the steppers |
+| Wheels | 4tronix, a UK company, sell wheels that fit the stepper motors http://4tronix.co.uk/store/index.php?rt=product/product&keyword=wheels&category_id=0&product_id=176. Alternatively here's some 3D printing files that I have found http://www.thingiverse.com/thing:862438 |
+| Lasers | eg https://www.amazon.co.uk/gp/product/B00JWJ1Y8W/, soldered to female jumper cables |
+| Light sensors | These were self assembled using [Photoresistors](https://www.amazon.co.uk/gp/product/B01N7V536K), 100 ohm, resistors, bits of [Veroboard](https://www.amazon.co.uk/Copper-strip-prototyping-veroboard-64x95mm/dp/B01C5TB3L8) cut with a Stanely knife. |
+| Shrimp Arduino| These kits are available from [Shrimping It](http://start.shrimping.it) |
+
+Note that the current reason for using the Arduino uints was to read the analogue values from the photoresistor. A simpler alternative, that we did not follow because of delivery times, might be connecing a [MCP 3008](https://www.amazon.co.uk/Adafruit-MCP3008-856-Converter-Interface/dp/B00NAY3RB2/) chip over [SPI](https://github.com/fhunleth/elixir_ale/blob/master/lib/elixir_ale/spi.ex).
+
+
+## Chassis
+
+The chassis was assembled from lego.
+
+Todo: brick list.
+
+
+
+## Assembly
+
+### PI Zero headers
+
+todo
+
+### Chassis
+
+todo
+
+### Motors and wheels
+
+todo
+
+### Connecting motors to PI and Batteries
+
+todo
+
+### Soldering the photoresistor units together
+
+todo
+
+### Assembling and connecting the Shrimp Arduino
+
+todo
+
+
+## Todo
+
+
+- Suggestions for improvements (eg control steppers via Arduino)
+- Suggestions for enhancement (eg more sensors. Recharge period for battery)
 
 
 ... soon
