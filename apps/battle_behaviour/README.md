@@ -1,3 +1,3 @@
 # BattleBehaviour
 
-For disabling actions after laser hits
+For reacting to laser hits.

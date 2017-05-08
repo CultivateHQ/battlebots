@@ -1,4 +1,4 @@
-defmodule BattleProxyTest do
+defmodule BattleBehaviour.BattleProxyTest do
   use ExUnit.Case
 
   alias BattleBehaviour.BattleProxy

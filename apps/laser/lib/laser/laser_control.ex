@@ -1,4 +1,10 @@
 defmodule Laser.LaserControl do
+  @moduledoc """
+  Fire the laser for 500 milliseconds. The laser's ground pin is set to the configured GPIO pin, and positive to +5v. Consequently the laser
+  is off, when the pin is `high` (1) and on when the pin is `low` (0).
+
+  """
+
   use GenServer
 
   alias ElixirALE.GPIO
@@ -17,7 +23,7 @@ defmodule Laser.LaserControl do
     {:ok, pin_pid} = GPIO.start_link(laser_pin, :output)
     GPIO.write(pin_pid, 1)
 
-    # Some naughty thing sets the state back to 0 after about 200ms. Horrid workaround ahead:
+    # Some naughty thing sets the state back to 0 after about 200ms. Horrid workaround in the next line:
     Process.send_after(self(), :cease_fire, 500)
 
     {:ok, %__MODULE__{pin_pid: pin_pid, fire_time: fire_time}}
