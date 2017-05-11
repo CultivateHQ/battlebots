@@ -199,7 +199,7 @@ Follow instructions on the [Shrimp site](http://start.shrimping.it/project/strip
 
 Upload the [Arduino code](arduino/laser_read/) to the board via the USB UART control. You will need to install the [USB driver modules](http://start.shrimping.it/project/shrimp/program.html)
 
-Connect the +5v and the ground to the same outputs on the Shrimp.
+Connect the +5v and the ground to the same outputs on the Shrimp, and the sensor to analogue pin 3 - that is the third down from the right. See [this diagram](https://www.arduino.cc/en/Hacking/PinMapping168).
 
 
 ## Todo
