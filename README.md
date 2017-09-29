@@ -180,9 +180,9 @@ todo
     * GPIO 19 to IN3 on the left ULN2003 controller
     * GPIO 26 to IN4 on the left ULN2003 controller
     * GPIO 12 to IN1 on the right ULN2003 controller
-    * GPIO 16 to IN1 on the right ULN2003 controller
-    * GPIO 20 to IN1 on the right ULN2003 controller
-    * GPIO 21 to IN1 on the right ULN2003 controller
+    * GPIO 16 to IN2 on the right ULN2003 controller
+    * GPIO 20 to IN3 on the right ULN2003 controller
+    * GPIO 21 to IN4 on the right ULN2003 controller
 1. Connect the positive (marked '+') pins on both ULN2003 controller to the positive terminal of the battery case.
 1. Connect the negative (marked '-') pins on both ULN2003 controller to the negative terminal of the battery case.
 
